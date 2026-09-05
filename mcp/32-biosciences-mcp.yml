@@ -1,0 +1,76 @@
+generated: '2026-09-05'
+method: derived
+source: openapi/_ae-authored/32-biosciences-content-openapi.yml
+name: 32 Biosciences MCP (candidate)
+status: candidate
+description: >-
+  32 Biosciences ships NO Model Context Protocol server. The route index at
+  https://32biosciences.com/wp-json/ advertises no `mcp` namespace, no hosted endpoint was found on
+  any host, and nothing is published to npm or PyPI. The tools below are a CANDIDATE mapping that
+  API Evangelist derived from the content OpenAPI we ourselves derived from that route index - they
+  describe what an MCP server over this surface COULD expose, not anything the company operates.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: none
+  verified: derived
+  note: >-
+    No remote endpoint and no stdio package exist. Nobody can point an MCP client at 32 Biosciences
+    today. Recorded as `none` rather than left blank so this is distinguishable from a provider that
+    ships a stdio package but no URL.
+adjacent_surface:
+  name: WordPress Abilities API
+  namespace: wp-abilities/v1
+  endpoints:
+  - url: https://32biosciences.com/wp-json/wp-abilities/v1/abilities
+    status: 401
+    body: '{"code":"rest_forbidden","message":"Sorry, you are not allowed to do that.","data":{"status":401}}'
+  - url: https://32biosciences.com/wp-json/wp-abilities/v1/categories
+    status: 401
+  note: >-
+    WordPress core now registers an Abilities registry, the substrate the WordPress MCP Adapter
+    builds tools from. It is present in this site's route index but authentication-gated, so no
+    ability can be enumerated anonymously and no MCP adapter is installed on top of it. This is a
+    lead for a future pass, not an agent surface today.
+tools:
+- name: search_32biosciences
+  description: Search 32biosciences.com across posts and pages and return titles, URLs and types.
+  rest: getSearch
+  candidate: true
+- name: list_news_posts
+  description: List 32 Biosciences news releases and feature posts, filterable by category, author and date.
+  rest: getPosts
+  candidate: true
+- name: get_news_post
+  description: Fetch one news release or feature post by WordPress id.
+  rest: getPostsById
+  candidate: true
+- name: list_pages
+  description: List the company's marketing, platform, pipeline and leadership-profile pages.
+  rest: getPages
+  candidate: true
+- name: get_page
+  description: Fetch one page by WordPress id.
+  rest: getPagesById
+  candidate: true
+- name: list_categories
+  description: List newsroom categories (Features, News Releases) with post counts.
+  rest: getCategories
+  candidate: true
+- name: list_media
+  description: List media-library attachments including headshots and platform diagrams.
+  rest: getMedia
+  candidate: true
+- name: list_authors
+  description: List the content authors behind the newsroom.
+  rest: getUsers
+  candidate: true
+notes:
+- No tool here has ever been served by 32 Biosciences. Every entry carries candidate:true.
+- >-
+  No ToolCrosswalk artifact is emitted. The crosswalk exists to record divergence between a real
+  MCP/GraphQL surface and a REST contract; with no MCP server and no GraphQL endpoint there are two
+  projections of nothing to reconcile, and a crosswalk over candidates would assert a binding that
+  does not exist.

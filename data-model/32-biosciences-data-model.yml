@@ -1,0 +1,154 @@
+generated: '2026-09-05'
+method: derived
+source: >-
+  openapi/_ae-authored/32-biosciences-content-openapi.yml and live object shapes read from
+  https://32biosciences.com/wp-json/wp/v2/ on 2026-09-05
+name: 32 Biosciences content data model
+description: >-
+  Entity-relationship graph of the WordPress content objects 32biosciences.com serves. Derived from
+  the id-reference fields in the route descriptor and confirmed against live responses. Identifiers
+  are plain integers - WordPress uses no prefixed id scheme.
+id_scheme:
+  type: integer
+  prefixed: false
+  detail: Every entity is keyed by an auto-increment integer `id` unique across the wp_posts table.
+entities:
+- name: Post
+  rest_base: posts
+  path: /wp/v2/posts
+  count_observed: 12
+  description: A news release or feature post in the 32 Biosciences newsroom.
+  key_fields: [id, date, date_gmt, modified, slug, status, type, link, title.rendered, content.rendered,
+    excerpt.rendered, author, featured_media, categories, tags, meta, acf]
+  relationships:
+  - type: belongs_to
+    target: User
+    via: author
+  - type: has_one
+    target: Media
+    via: featured_media
+  - type: has_many
+    target: Category
+    via: categories
+  - type: has_many
+    target: Tag
+    via: tags
+- name: Page
+  rest_base: pages
+  path: /wp/v2/pages
+  count_observed: 37
+  description: >-
+    A marketing, platform, pipeline, investor-relations or individual leadership/advisory profile
+    page. Leadership profiles are modelled as pages on this site, not as a custom post type.
+  key_fields: [id, date, modified, slug, status, type, link, title.rendered, content.rendered, parent,
+    menu_order, author, featured_media, template]
+  relationships:
+  - type: belongs_to
+    target: User
+    via: author
+  - type: belongs_to
+    target: Page
+    via: parent
+  - type: has_one
+    target: Media
+    via: featured_media
+- name: Media
+  rest_base: media
+  path: /wp/v2/media
+  count_observed: 230
+  description: A media-library attachment - headshot, platform diagram or press asset.
+  key_fields: [id, date, slug, link, title.rendered, alt_text, caption.rendered, media_type, mime_type,
+    source_url, media_details.sizes, post]
+  relationships:
+  - type: belongs_to
+    target: Post
+    via: post
+    note: Also references Page; `post` holds the parent object id whatever its type.
+  - type: belongs_to
+    target: User
+    via: author
+- name: Category
+  rest_base: categories
+  path: /wp/v2/categories
+  count_observed: 3
+  description: >-
+    Newsroom category. Observed terms - Features (7 posts), News Releases (12 posts),
+    Uncategorized (0).
+  key_fields: [id, count, description, link, name, slug, taxonomy, parent, meta, acf]
+  relationships:
+  - type: has_many
+    target: Post
+    via: categories
+  - type: belongs_to
+    target: Category
+    via: parent
+- name: Tag
+  rest_base: tags
+  path: /wp/v2/tags
+  count_observed: 1
+  description: Newsroom tag. One term observed - "Main" (1 post).
+  key_fields: [id, count, description, link, name, slug, taxonomy, meta]
+  relationships:
+  - type: has_many
+    target: Post
+    via: tags
+- name: User
+  rest_base: users
+  path: /wp/v2/users
+  count_observed: 4
+  description: A content author. Anonymous reads are limited to authors with published content.
+  key_fields: [id, name, url, description, link, slug, avatar_urls, meta]
+  relationships:
+  - type: has_many
+    target: Post
+    via: author
+  - type: has_many
+    target: Page
+    via: author
+- name: Comment
+  rest_base: comments
+  path: /wp/v2/comments
+  count_observed: 0
+  description: >-
+    Registered but unreachable - the route returns HTTP 403 rest_comment_disabled because commenting
+    is switched off site-wide. Modelled from the route descriptor only.
+  relationships:
+  - type: belongs_to
+    target: Post
+    via: post
+- name: SearchResult
+  rest_base: search
+  path: /wp/v2/search
+  description: >-
+    A lightweight projection over Post and Page for site search - id, title, url, type, subtype and
+    _links.self pointing at the full object.
+  relationships:
+  - type: belongs_to
+    target: Post
+    via: id
+  - type: belongs_to
+    target: Page
+    via: id
+- name: Type
+  rest_base: types
+  path: /wp/v2/types
+  description: Registry of the post types registered on this site.
+- name: Taxonomy
+  rest_base: taxonomies
+  path: /wp/v2/taxonomies
+  description: Registry of the taxonomies registered on this site (category, post_tag).
+- name: Status
+  rest_base: statuses
+  path: /wp/v2/statuses
+  description: Registry of publication statuses.
+relationship_discovery:
+  hal_links: true
+  detail: >-
+    Every object carries a `_links` block with self, collection, about, author, replies,
+    wp:featuredmedia, wp:attachment and wp:term relations, so the graph above is also traversable at
+    runtime without this document. `?_embed=true` inlines the linked objects.
+notes:
+- >-
+  This is a CMS content model, not a scientific one. Nothing in 32 Biosciences' diagnostic or
+  therapeutic platform - metabolomic signatures, pipeline assets, clinical data - is exposed
+  programmatically anywhere on this surface.

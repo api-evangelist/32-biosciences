@@ -1,0 +1,57 @@
+generated: '2026-09-05'
+method: searched
+source: >-
+  https://32biosciences.com/ site crawl (sitemap_index.xml, wp/v2/pages), plus probes of the
+  conventional status/changelog/deprecation locations
+name: 32 Biosciences lifecycle
+description: >-
+  Versioning, deprecation, status and support-lifecycle posture. There is very little to record and
+  that is the finding: 32 Biosciences runs no developer program, so none of the lifecycle
+  commitments an API consumer would look for exist. The one versioned surface is WordPress core's
+  own namespace versioning, which the company inherits rather than publishes.
+versioning:
+  scheme: namespace-in-path
+  current_version: wp/v2
+  detail: >-
+    The WordPress REST API versions by namespace segment - /wp-json/wp/v2/. This is WordPress core's
+    scheme, not a policy 32 Biosciences authored or committed to. The site also exposes
+    oembed/1.0 and wp-abilities/v1.
+  policy_published: false
+  policy_url: null
+deprecation:
+  policy_published: false
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  detail: >-
+    No deprecation policy, no Sunset or Deprecation response headers observed on any route, and no
+    deprecated operations declared in the derived contract.
+  deprecated_operations: []
+status_page:
+  published: false
+  url: null
+  probes:
+  - url: https://status.32biosciences.com/
+    status: 0
+    note: Host does not resolve.
+  detail: No status page, uptime history or incident feed of any kind.
+sla:
+  published: false
+  url: null
+changelog:
+  published: false
+  url: null
+  detail: >-
+    No dated changelog or release-notes page exists. The newsroom at
+    https://32biosciences.com/news-updates/ is corporate press, not a product changelog, and is
+    recorded as Blog/News rather than ChangeLog. No ChangeLog pointer is wired.
+support:
+  channel: https://32biosciences.com/contact/
+  email: info@32biosciences.com
+  phone: '847-922-5332'
+  detail: A corporate contact form and address, not developer support.
+notes:
+- >-
+  No StatusPage and no Deprecation pointer is wired into apis.yml. Both would assert a published
+  commitment; neither exists.

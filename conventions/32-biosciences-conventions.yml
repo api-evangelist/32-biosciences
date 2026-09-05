@@ -1,0 +1,138 @@
+generated: '2026-09-05'
+method: derived
+source: >-
+  openapi/_ae-authored/32-biosciences-content-openapi.yml, the route index at
+  https://32biosciences.com/wp-json/, and response headers observed on live anonymous requests
+  2026-09-05
+name: 32 Biosciences API conventions
+description: >-
+  Cross-cutting runtime semantics of the only API surface 32 Biosciences serves - the WordPress REST
+  API behind 32biosciences.com. The company publishes no developer documentation, so every
+  convention below is derived from the served route descriptor and from headers observed on the
+  wire, not from a docs page. Where a convention does not exist, that is recorded rather than
+  softened.
+auth:
+  style: http-basic
+  scheme: WordPress Application Passwords over HTTP Basic
+  anonymous_read: true
+  authorization_endpoint: https://32biosciences.com/wp-admin/authorize-application.php
+  detail: >-
+    The route index advertises `authentication.application-passwords`. Content reads need no
+    credential; an anonymous request returns `Allow: GET`. There is no public sign-up, no key
+    issuance and no OAuth, so the write surface is administrative only.
+  see: authentication/32-biosciences-authentication.yml
+idempotency:
+  coverage: none
+  scope: []
+  header: null
+  retention: null
+  detail: >-
+    No Idempotency-Key header is accepted, documented or observed. WordPress core offers no replay
+    protection on the REST write surface: a repeated POST to /wp/v2/posts creates a second post.
+    PUT/PATCH on an item route are naturally idempotent by HTTP semantics, but that is a property of
+    the method, not a mechanism the provider ships, and it does not make the surface idempotent.
+  no_idempotency_pointer: true
+  note: >-
+    Because coverage is `none`, NO Idempotency pointer is wired into apis.yml. Emitting one would
+    claim a replay-protection mechanism this API does not have.
+reversibility:
+  grade: documented
+  detail: >-
+    A reversal path exists and is described in the served route descriptor; no window is stated
+    anywhere by 32 Biosciences, so this grades `documented` rather than `verified`.
+  write_surfaces:
+  - surface: Delete a post, page or media attachment
+    operations: [deletePostsById, deletePagesById, deleteMediaById, deleteCategoriesById, deleteTagsById]
+    reversal: >-
+      DELETE with `force=false` (the default for posts, pages and blocks) moves the item to Trash
+      rather than destroying it; the item can be restored by updating its `status` back to `publish`
+      or `draft`. DELETE with `force=true` bypasses Trash and is irreversible.
+    reversal_operation: updatePostsById
+    window: null
+    window_source: null
+    window_note: >-
+      WordPress core purges Trash on a configurable interval, but 32 Biosciences publishes no
+      documentation and states no retention window anywhere. NOT recorded as a window: asserting one
+      we did not read from the provider is exactly the error this field exists to prevent.
+    evidence: >-
+      The `force` parameter - "Whether to bypass Trash and force deletion." - is declared on the
+      DELETE endpoints of /wp/v2/posts/{id}, /wp/v2/pages/{id} and /wp/v2/media/{id} in the route
+      index served at https://32biosciences.com/wp-json/.
+  - surface: Create or update a post or page
+    operations: [createPosts, updatePostsById, createPages, updatePagesById]
+    reversal: >-
+      Revisions are retained and exposed at /wp/v2/posts/{parent}/revisions and
+      /wp/v2/pages/{parent}/revisions, so a prior state can be read back and re-applied.
+    reversal_operation: null
+    window: null
+    window_source: null
+    note: >-
+      The revisions routes are registered in this site's route index. They are not included in the
+      derived content OpenAPI, which is scoped to the public content surface.
+  na_reason: null
+dry_run_mode:
+  supported: false
+  detail: No preview, validate-only or dry-run parameter exists on any write operation.
+pagination:
+  style: page-number
+  params:
+    page: 1-based page index, default 1.
+    per_page: items per page, default 10, maximum 100.
+    offset: absolute offset, accepted as an alternative to page.
+  response_headers: [X-WP-Total, X-WP-TotalPages]
+  link_header: RFC 5988 rel="next" and rel="prev"
+  cors_exposed: >-
+    Access-Control-Expose-Headers on live responses lists X-WP-Total, X-WP-TotalPages and Link, so
+    a browser client can read the totals.
+  evidence: >-
+    GET https://32biosciences.com/wp-json/wp/v2/posts?per_page=1 returned x-wp-total: 12,
+    x-wp-totalpages: 12 and link: <...&page=2>; rel="next".
+field_selection:
+  supported: true
+  param: _fields
+  detail: >-
+    `_fields=id,title,link` trims the response to the named fields. `_embed` inlines linked
+    resources (author, featured media, terms) into `_embedded`.
+  expansion_param: _embed
+metadata:
+  supported: true
+  detail: >-
+    Objects carry a `meta` object and, on this site, an `acf` object from the Advanced Custom Fields
+    plugin. Available keys are site-specific and not documented by 32 Biosciences.
+request_id_tracing:
+  supported: false
+  detail: No request-id, correlation-id or trace header is returned. Observed response headers are
+    server, date, content-type, vary, x-robots-tag, x-content-type-options, the CORS expose/allow
+    headers, x-wp-total, x-wp-totalpages, link, allow, cache-control and expires.
+versioning:
+  style: namespace-in-path
+  current: wp/v2
+  see: lifecycle/32-biosciences-lifecycle.yml
+error_envelope:
+  format: wordpress-rest
+  media_type: application/json
+  rfc9457: false
+  shape: '{"code": string, "message": string, "data": {"status": integer, "params": object}}'
+  see: errors/32-biosciences-problem-types.yml
+rate_limit_signaling:
+  headers_returned: []
+  documented: false
+  detail: >-
+    No X-RateLimit-*, RateLimit-* or Retry-After header was returned on any observed response, and
+    no limit is documented. An agent has no runtime signal to back off on.
+  see: rate-limits/32-biosciences-rate-limits.yml
+batching:
+  supported: true
+  endpoint: /batch/v1
+  detail: >-
+    WordPress core's batch route is registered in this site's route index. It is administrative -
+    the operations it batches are the same authenticated writes - and was not exercised.
+caching:
+  detail: >-
+    Responses carry `cache-control: max-age=0` and an `expires` header set to the request time; no
+    ETag or Last-Modified was returned on the collection responses observed.
+notes:
+- >-
+  These are WordPress core's conventions, inherited by 32 Biosciences rather than designed by them.
+  Recorded because they are what an agent calling this host actually encounters, and marked as
+  derived so nobody reads them as a commitment the company made.

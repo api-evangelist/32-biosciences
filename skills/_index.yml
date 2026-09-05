@@ -1,0 +1,32 @@
+generated: '2026-09-05'
+method: generated
+source: openapi/_ae-authored/32-biosciences-content-openapi.yml
+name: 32 Biosciences agent skills
+description: >-
+  Packaged operating instructions for the only API surface 32 Biosciences serves - the WordPress
+  REST API behind 32biosciences.com. Every operationId referenced in these skills was verified
+  against the derived content OpenAPI; none was invented. These skills are written by API
+  Evangelist, not published by 32 Biosciences.
+skill_count: 2
+skills:
+- name: 32-biosciences-read-newsroom
+  file: skills/32-biosciences-read-newsroom.md
+  api: 32-biosciences:32-biosciences-posts-api
+  description: >-
+    Read news releases and feature posts, resolve authors, categories and featured media in one
+    embedded request, and page the full newsroom.
+  operations: [getPosts, getPostsById, getCategories, getCategoriesById, getUsers, getMediaById]
+  auth: none
+- name: 32-biosciences-search-and-pages
+  file: skills/32-biosciences-search-and-pages.md
+  api: 32-biosciences:32-biosciences-discovery-api
+  description: >-
+    Search the site, read the marketing, platform, pipeline and leadership-profile pages, and
+    confirm the registered types and taxonomies before generalising.
+  operations: [getSearch, getPages, getPagesById, getTypes, getTaxonomies, getStatuses, getOembedEmbed]
+  auth: none
+notes:
+- >-
+  No write skill is packaged. The write surface requires a WordPress Application Password held by a
+  32 Biosciences administrator, has no idempotency mechanism, and is not something an agent should
+  be handed instructions for.

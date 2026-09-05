@@ -1,23 +1,309 @@
 aid: 32-biosciences
 name: 32 Biosciences
-description: '32 Biosciences is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: 32 Biosciences (pronounced "Three Squared") is a North Chicago, Illinois gastrointestinal biotechnology
+  company founded in 2023 that pioneers gut mucosal-immune science to prevent and treat GI disease. It emerged
+  from stealth in September 2024 and is built on research by scientific co-founders John Alverdy MD and Eugene
+  Chang MD of the University of Chicago and Joseph Pierre PhD of the University of Wisconsin-Madison, with Peter
+  Farmakis as CEO. The company runs two platforms - a GI Discovery Platform that measures metabolomic signatures
+  of gut mucosal-immune function for therapeutic discovery and clinical decision-making, and a CS Therapeutic Platform
+  whose lead asset CS-0003 is a Mucosal Immune Modulator intended to restore and protect the GI mucosal-immune
+  barrier across seven indications. It raised $6 million in early funding and announced a $40 million Series A
+  launch at the 2026 J.P. Morgan Healthcare Conference. 32 Biosciences publishes no product or developer API and
+  runs no developer program; the only machine-readable surface on 32biosciences.com is the WordPress REST API (wp/v2)
+  that serves the company newsroom, marketing and platform pages, leadership profiles, taxonomies and media library
+  as JSON, alongside a WordPress Abilities registry that is present but authentication-gated.
 url: https://raw.githubusercontent.com/api-evangelist/32-biosciences/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
+x-tier: profiled
+x-tier-reason: enrichment-pipeline
+image: https://32biosciences.com/wp-content/uploads/2024/11/32-favicon.png
 specificationVersion: '0.20'
 created: '2026-09-05'
 modified: '2026-09-05'
+position: Producing
 tags:
 - Company
-apis: []
+- Biotechnology
+- Life Sciences
+- Gastroenterology
+- Microbiome
+- Diagnostics
+- Therapeutics
+- Drug Discovery
+- Pharmaceuticals
+- Metabolomics
+- Healthcare
+- Content
+apis:
+- aid: 32-biosciences:32-biosciences-posts-api
+  name: 32 Biosciences Posts API
+  description: The WordPress wp/v2 posts collection on 32biosciences.com, serving the company's news releases
+    and feature posts as JSON - 12 published posts at the time of profiling, filterable by category, tag, author,
+    date and search string. Read access is anonymous; writes require WordPress Application Passwords.
+  humanURL: https://32biosciences.com/news-updates/
+  baseURL: https://32biosciences.com/wp-json/wp/v2
+  tags:
+  - Content
+  - Posts
+  - News
+  properties:
+  - type: OpenAPI
+    url: openapi/32-biosciences-posts-api-openapi.yml
+  - type: DataModel
+    url: data-model/32-biosciences-data-model.yml
+  - type: ErrorCatalog
+    url: errors/32-biosciences-problem-types.yml
+  - type: Examples
+    url: examples/32-biosciences-examples.yml
+- aid: 32-biosciences:32-biosciences-pages-api
+  name: 32 Biosciences Pages API
+  description: The WordPress wp/v2 pages collection on 32biosciences.com, serving the company's 37 marketing and
+    platform pages as JSON - Our Story, Technology, Therapeutic Platform, Discovery Platform, Pipeline & Proof
+    of Concept, Team, Investor Relations, Contact, and one page per leadership and scientific-advisory profile.
+  humanURL: https://32biosciences.com/our-story/
+  baseURL: https://32biosciences.com/wp-json/wp/v2
+  tags:
+  - Content
+  - Pages
+  properties:
+  - type: OpenAPI
+    url: openapi/32-biosciences-pages-api-openapi.yml
+  - type: DataModel
+    url: data-model/32-biosciences-data-model.yml
+  - type: ErrorCatalog
+    url: errors/32-biosciences-problem-types.yml
+  - type: Examples
+    url: examples/32-biosciences-examples.yml
+- aid: 32-biosciences:32-biosciences-media-api
+  name: 32 Biosciences Media API
+  description: The WordPress wp/v2 media collection on 32biosciences.com, serving the site's media library - 230
+    attachments including leadership headshots, platform diagrams and press assets - with rendered size variants
+    and source URLs as JSON.
+  humanURL: https://32biosciences.com/news-updates/
+  baseURL: https://32biosciences.com/wp-json/wp/v2
+  tags:
+  - Content
+  - Media
+  properties:
+  - type: OpenAPI
+    url: openapi/32-biosciences-media-api-openapi.yml
+  - type: DataModel
+    url: data-model/32-biosciences-data-model.yml
+  - type: ErrorCatalog
+    url: errors/32-biosciences-problem-types.yml
+  - type: Examples
+    url: examples/32-biosciences-examples.yml
+- aid: 32-biosciences:32-biosciences-taxonomy-api
+  name: 32 Biosciences Taxonomy API
+  description: The WordPress wp/v2 categories and tags collections on 32biosciences.com. Three categories (Features,
+    News Releases and one further term) and one tag classify the newsroom; each term carries a description, post
+    count and permalink.
+  humanURL: https://32biosciences.com/category/news-releases/
+  baseURL: https://32biosciences.com/wp-json/wp/v2
+  tags:
+  - Content
+  - Taxonomy
+  properties:
+  - type: OpenAPI
+    url: openapi/32-biosciences-taxonomy-api-openapi.yml
+  - type: DataModel
+    url: data-model/32-biosciences-data-model.yml
+  - type: ErrorCatalog
+    url: errors/32-biosciences-problem-types.yml
+  - type: Examples
+    url: examples/32-biosciences-examples.yml
+- aid: 32-biosciences:32-biosciences-discovery-api
+  name: 32 Biosciences Discovery API
+  description: The WordPress discovery routes on 32biosciences.com - site-wide search across posts and pages,
+    the registered post types, taxonomies and post statuses, and the oEmbed 1.0 endpoint that returns an embeddable
+    representation of any URL on the site.
+  humanURL: https://32biosciences.com/
+  baseURL: https://32biosciences.com/wp-json
+  tags:
+  - Content
+  - Search
+  - Discovery
+  properties:
+  - type: OpenAPI
+    url: openapi/32-biosciences-discovery-api-openapi.yml
+  - type: DataModel
+    url: data-model/32-biosciences-data-model.yml
+  - type: ErrorCatalog
+    url: errors/32-biosciences-problem-types.yml
+  - type: Examples
+    url: examples/32-biosciences-examples.yml
+- aid: 32-biosciences:32-biosciences-users-api
+  name: 32 Biosciences Users API
+  description: The WordPress wp/v2 users collection on 32biosciences.com, serving the four content authors behind
+    the newsroom with name, slug, avatar and author-archive permalink. Read access is anonymous and limited to
+    authors with published content.
+  humanURL: https://32biosciences.com/news-updates/
+  baseURL: https://32biosciences.com/wp-json/wp/v2
+  tags:
+  - Content
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/32-biosciences-users-api-openapi.yml
+  - type: DataModel
+    url: data-model/32-biosciences-data-model.yml
+  - type: ErrorCatalog
+    url: errors/32-biosciences-problem-types.yml
+  - type: Examples
+    url: examples/32-biosciences-examples.yml
+- aid: 32-biosciences:32-biosciences-comments-api
+  name: 32 Biosciences Comments API
+  description: The WordPress wp/v2 comments collection on 32biosciences.com. The route is registered and advertised
+    in the route index but commenting is switched off site-wide, so an anonymous GET returns HTTP 403 rest_comment_disabled.
+    Recorded because the route is published, not because it returns data.
+  humanURL: https://32biosciences.com/news-updates/
+  baseURL: https://32biosciences.com/wp-json/wp/v2
+  tags:
+  - Content
+  - Comments
+  properties:
+  - type: OpenAPI
+    url: openapi/32-biosciences-comments-api-openapi.yml
+  - type: ErrorCatalog
+    url: errors/32-biosciences-problem-types.yml
+- aid: 32-biosciences:32-biosciences-settings-api
+  name: 32 Biosciences Settings API
+  description: The WordPress wp/v2 settings route on 32biosciences.com. Advertised in the route index and reachable,
+    but administrative - an anonymous GET returns HTTP 401 rest_forbidden. Recorded for completeness of the published
+    route surface.
+  humanURL: https://32biosciences.com/
+  baseURL: https://32biosciences.com/wp-json/wp/v2
+  tags:
+  - Content
+  - Settings
+  properties:
+  - type: OpenAPI
+    url: openapi/32-biosciences-settings-api-openapi.yml
+  - type: ErrorCatalog
+    url: errors/32-biosciences-problem-types.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Authentication
+  url: authentication/32-biosciences-authentication.yml
+- type: DomainSecurity
+  url: security/32-biosciences-domain-security.yml
 - type: Website
-  url: https://www.nasdaqprivatemarket.com/
+  url: https://32biosciences.com/
+- type: About
+  url: https://32biosciences.com/our-story/
+- type: Team
+  url: https://32biosciences.com/team/
+- type: Technology
+  url: https://32biosciences.com/technology/
+- type: Pipeline
+  url: https://32biosciences.com/pipeline-proof-of-concept/
+- type: News
+  url: https://32biosciences.com/news-updates/
+- type: Blog
+  url: https://32biosciences.com/category/news-releases/
+- type: BlogRSS
+  url: https://32biosciences.com/feed/
+- type: Support
+  url: https://32biosciences.com/contact/
+- type: InvestorRelations
+  url: https://32biosciences.com/investor-relations/
+- type: PrivacyPolicy
+  url: https://32biosciences.com/privacy-policy/
+- type: CookiePolicy
+  url: https://32biosciences.com/cookie-policy/
+- type: Accessibility
+  url: https://32biosciences.com/accessibility-statement/
+- type: LinkedIn
+  url: https://www.linkedin.com/company/32biosciences
+- type: Packages
+  url: packages/32-biosciences-packages.yml
+- type: LLMsTxt
+  url: llms/32-biosciences-llms.txt
+- type: Overlay
+  url: overlays/32-biosciences-content-overlay.yaml
+- type: Conformance
+  url: conformance/32-biosciences-conformance.yml
+- type: Conventions
+  url: conventions/32-biosciences-conventions.yml
+- type: Lifecycle
+  url: lifecycle/32-biosciences-lifecycle.yml
+- type: ErrorCatalog
+  url: errors/32-biosciences-problem-types.yml
+- type: DataModel
+  url: data-model/32-biosciences-data-model.yml
+- type: Examples
+  url: examples/32-biosciences-examples.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Plans
+  url: plans/32-biosciences-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/32-biosciences-rate-limits.yml
+- type: X-MCPServerCandidate
+  url: mcp/32-biosciences-mcp.yml
+x-pointers-deliberately-omitted:
+  note: >-
+    Recorded so a later pass does not read these as gaps this run missed. Each was probed or
+    derived and the underlying thing is genuinely absent, so emitting the pointer would be a false
+    claim made on 32 Biosciences' behalf.
+  omitted:
+  - type: WellKnown
+    reason: >-
+      Every /.well-known/ path on both hosts returns HTTP 404 with the site's HTML 404 template.
+      The probe is recorded in well-known/32-biosciences-well-known.yml; the pointer is not.
+  - type: SecurityTxt
+    reason: https://32biosciences.com/.well-known/security.txt returns HTTP 404.
+  - type: AgentCard
+    reason: >-
+      /.well-known/agent-card.json and /.well-known/agent.json both return HTTP 404. Never derived.
+      No a2a/ artifact was written.
+  - type: MCPServer
+    reason: >-
+      No MCP server exists. mcp/32-biosciences-mcp.yml carries deployment.mode none and a candidate
+      tool list, so it is pointed at with X-MCPServerCandidate instead.
+  - type: SDKs
+    reason: >-
+      npm, PyPI and GitHub searches all returned zero first-party packages;
+      packages/32-biosciences-packages.yml records package_count 0.
+  - type: Idempotency
+    reason: >-
+      conventions idempotency.coverage is none - no Idempotency-Key header is accepted, documented
+      or observed anywhere on the surface.
+  - type: StatusPage
+    reason: No status page. status.32biosciences.com does not resolve.
+  - type: Deprecation
+    reason: No deprecation policy, and no Sunset or Deprecation headers on any observed response.
+  - type: Security
+    reason: >-
+      probe-security-programs.py found no vulnerability-disclosure policy, no bug bounty and no
+      security contact.
+  - type: Compliance
+    reason: No certification, audit report or trust center is published.
+  - type: ChangeLog
+    reason: >-
+      No dated changelog exists. The newsroom is corporate press and is wired as Blog/News.
+  - type: Pricing
+    reason: >-
+      No pricing page anywhere in the 37-page site inventory; plans plan_count is 0.
+  - type: TermsOfService
+    reason: >-
+      No terms page is published. /terms-of-use/ returns HTTP 404; only privacy, cookie,
+      accessibility and conflict-of-interest policies exist.
+  - type: GitHubOrganization
+    reason: https://github.com/32biosciences returns HTTP 404 and GitHub search finds no org.
+  - types: [DeveloperPortal, Documentation, APIReference, GettingStarted, Sandbox, CLI, Postman, Roadmap,
+      SignUp, AsyncAPI, Webhooks]
+    reason: >-
+      None of these exist. 32 Biosciences runs no developer program: there is no portal, no
+      documentation, no reference, no console, no CLI, no public Postman collection, no roadmap, no
+      developer sign-up and no event or webhook surface of any kind.
+x-enrichment:
+  date: '2026-09-05'
+  status: enriched
+  artifacts_added: 29
+  pass: local-v3

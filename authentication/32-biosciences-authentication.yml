@@ -1,0 +1,26 @@
+generated: '2026-09-05'
+method: derived
+source: openapi/32-biosciences-comments-api-openapi.yml, openapi/32-biosciences-discovery-api-openapi.yml,
+  openapi/32-biosciences-media-api-openapi.yml, openapi/32-biosciences-pages-api-openapi.yml,
+  openapi/32-biosciences-posts-api-openapi.yml, openapi/32-biosciences-settings-api-openapi.yml,
+  openapi/32-biosciences-taxonomy-api-openapi.yml, openapi/32-biosciences-users-api-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: applicationPassword
+  type: http
+  scheme: basic
+  description: WordPress Application Passwords over HTTP Basic. The route-discovery document
+    advertises the authorization endpoint at https://32biosciences.com/wp-admin/authorize-application.php.
+    Anonymous read access needs no credential; every write, and the settings and abilities routes,
+    require one.
+  sources:
+  - openapi/32-biosciences-comments-api-openapi.yml
+  - openapi/32-biosciences-discovery-api-openapi.yml
+  - openapi/32-biosciences-media-api-openapi.yml
+  - openapi/32-biosciences-pages-api-openapi.yml
+  - openapi/32-biosciences-posts-api-openapi.yml
+  - openapi/32-biosciences-settings-api-openapi.yml
+  - openapi/32-biosciences-taxonomy-api-openapi.yml
+  - openapi/32-biosciences-users-api-openapi.yml

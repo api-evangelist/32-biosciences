@@ -1,0 +1,72 @@
+generated: '2026-09-05'
+method: probed
+source: https://32biosciences.com/
+name: 32 Biosciences well-known probe
+description: >-
+  Probe of the RFC 8615 /.well-known/ path list on every host this record knows. 32 Biosciences
+  runs a single WordPress site on one registrable domain; there is no API host, no docs host and
+  no console host, so the host list is the apex plus www. NOTHING was served: every path returns
+  the site's WordPress 404 template as HTML, and the www host 301s to the apex. No WellKnown or
+  SecurityTxt pointer is emitted in apis.yml, because this file records an absence.
+hosts:
+- host: 32biosciences.com
+  note: Registrable domain and the single origin behind the website and its WordPress REST API.
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+    note: WordPress 404 template returned as text/html, not a document.
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+  - path: /.well-known/aauth-resource.json
+    status: 404
+    file: null
+- host: www.32biosciences.com
+  note: Redirects to the apex with HTTP 301 on every path probed; no document is served here.
+  documents:
+  - path: /.well-known/security.txt
+    status: 301
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 301
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 301
+    file: null
+  - path: /.well-known/api-catalog
+    status: 301
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 301
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 301
+    file: null
+  - path: /.well-known/agent.json
+    status: 301
+    file: null
+summary:
+  hosts_probed: 2
+  documents_served: 0
+  llms_txt: 404
+  robots_txt: 200
+  sitemap: https://32biosciences.com/sitemap_index.xml

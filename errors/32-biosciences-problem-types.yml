@@ -1,0 +1,78 @@
+generated: '2026-09-05'
+method: derived
+source: >-
+  openapi/_ae-authored/32-biosciences-content-openapi.yml plus error bodies observed live on
+  https://32biosciences.com/wp-json/ on 2026-09-05
+name: 32 Biosciences error catalog
+format: wordpress-rest
+description: >-
+  32 Biosciences publishes no error reference. This catalog is derived from the 4xx responses in the
+  content OpenAPI we derived from the site's WordPress route index, and enriched with the exact
+  bodies returned by live anonymous requests. The envelope is the WordPress REST error object, NOT
+  RFC 9457 problem+json.
+envelope:
+  media_type: application/json
+  shape:
+    code: Machine-readable error slug, e.g. rest_post_invalid_id.
+    message: Human-readable message.
+    data:
+      status: HTTP status code, repeated inside the body.
+      params: Present on 400 validation failures; maps parameter name to its failure message.
+  example: '{"code":"rest_forbidden","message":"Sorry, you are not allowed to do that.","data":{"status":401}}'
+problem_types:
+- code: rest_comment_disabled
+  status: 403
+  title: Comments are disabled
+  detail: The comments route is registered and advertised in the route index, but commenting is switched off site-wide.
+  observed: true
+  observed_at: https://32biosciences.com/wp-json/wp/v2/comments?per_page=1
+  observed_body: '{"code":"rest_comment_disabled","message":"Comments are disabled.","data":{"status":403}}'
+  remediation: Do not call this route. It cannot return data on this site regardless of credentials presented.
+- code: rest_forbidden
+  status: 401
+  title: Not allowed
+  detail: >-
+    Returned anonymously on administrative routes. Observed on /wp/v2/settings and on both
+    wp-abilities/v1 routes.
+  observed: true
+  observed_at: https://32biosciences.com/wp-json/wp/v2/settings
+  observed_body: '{"code":"rest_forbidden","message":"Sorry, you are not allowed to do that.","data":{"status":401}}'
+  remediation: >-
+    Authenticate with a WordPress Application Password over HTTP Basic and a user account holding
+    the relevant capability. No public credential exists.
+- code: rest_post_invalid_id
+  status: 404
+  title: Invalid post ID
+  detail: The requested post, page or attachment id does not exist or is not published.
+  observed: false
+  source: WordPress core response shape for the item routes declared in the route index.
+  remediation: List the collection first and use an id from the response.
+- code: rest_invalid_param
+  status: 400
+  title: Invalid parameter
+  detail: >-
+    A query parameter failed the schema declared in the route index - for example per_page above
+    100, or an enum value outside {view, embed, edit}.
+  observed: false
+  source: >-
+    Derived from the parameter schemas (enum, minimum, maximum) in
+    openapi/_ae-authored/32-biosciences-content-openapi.yml.
+  remediation: Correct the parameter; data.params names the offending parameter and why it failed.
+- code: rest_no_route
+  status: 404
+  title: No route was found
+  detail: The path is not registered in this site's route index.
+  observed: false
+  source: WordPress core.
+  remediation: Fetch https://32biosciences.com/wp-json/ and use a route it lists.
+- code: rest_cannot_edit
+  status: 403
+  title: Not allowed to edit
+  detail: An authenticated user without the required capability attempted a write.
+  observed: false
+  source: Derived from the authenticated write operations in the content OpenAPI.
+  remediation: Not applicable to public consumers; the write surface is administrative.
+notes:
+- >-
+  No decline-codes artifact is emitted. 32 Biosciences is not a payments or authorization provider
+  and has no decline surface.

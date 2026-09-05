@@ -1,0 +1,76 @@
+overlay: 1.0.0
+info:
+  title: 32 Biosciences Content API enhancements
+  version: 1.0.0
+  x-generated: '2026-09-05'
+  x-method: generated
+  x-source: openapi/_ae-authored/32-biosciences-content-openapi.yml
+  x-note: >-
+    Captures API Evangelist's enhancements over the derived content OpenAPI. Applied as an OpenAPI
+    Overlay so the derived document is never mutated in place. Nothing here is a claim by
+    32 Biosciences; the underlying document is itself derived from the WordPress route index.
+extends: ../openapi/_ae-authored/32-biosciences-content-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-provider: 32 Biosciences
+    x-provider-url: https://32biosciences.com/
+    x-api-class: cms-content
+    x-agent-readable: true
+    x-write-surface-requires-auth: true
+- target: $.info
+  update:
+    x-observed:
+      probed: '2026-09-05'
+      posts_total: 12
+      pages_total: 37
+      media_total: 230
+      categories_total: 3
+      tags_total: 1
+      users_total: 4
+      search_results_for_microbiome: 26
+      note: >-
+        Totals read from the X-WP-Total response header on an anonymous GET of each collection on
+        2026-09-05.
+- target: $.servers[0]
+  update:
+    x-anonymous-read: true
+    x-allow-header: 'GET'
+    x-note: >-
+      An anonymous request returns `Allow: GET`. Every other method on the same route requires a
+      WordPress Application Password.
+- target: $.tags
+  update:
+  - name: Posts
+    description: News releases and feature posts from the 32 Biosciences newsroom.
+  - name: Pages
+    description: Marketing, platform, pipeline, investor-relations and leadership-profile pages.
+  - name: Media
+    description: Media library - headshots, platform diagrams and press assets.
+  - name: Taxonomy
+    description: Newsroom categories and tags.
+  - name: Discovery
+    description: Site search, registered types, taxonomies, statuses and oEmbed.
+  - name: Users
+    description: Content authors behind the newsroom.
+  - name: Comments
+    description: Registered but disabled site-wide; anonymous GET returns 403 rest_comment_disabled.
+  - name: Settings
+    description: Administrative; anonymous GET returns 401 rest_forbidden.
+- target: $.paths['/wp/v2/comments'].get
+  update:
+    x-served-but-disabled: true
+    x-observed-status: 403
+    x-observed-body: '{"code":"rest_comment_disabled","message":"Comments are disabled.","data":{"status":403}}'
+- target: $.paths['/wp/v2/settings'].get
+  update:
+    x-observed-status: 401
+    x-observed-body: '{"code":"rest_forbidden","message":"Sorry, you are not allowed to do that.","data":{"status":401}}'
+- target: $.paths['/wp/v2/posts'].get
+  update:
+    x-pagination:
+      style: page-number
+      params: [page, per_page]
+      max_per_page: 100
+      response_headers: [X-WP-Total, X-WP-TotalPages]
+      link_header: RFC 5988 rel="next" / rel="prev"

@@ -1,0 +1,96 @@
+generated: '2026-09-05'
+method: derived
+source: >-
+  openapi/_ae-authored/32-biosciences-content-openapi.yml, observed HTTP responses on
+  https://32biosciences.com/wp-json/, and the 32biosciences.com policy pages
+name: 32 Biosciences conformance
+description: >-
+  What the published surface actually conforms to. 32 Biosciences is a pre-clinical biotechnology
+  company with no developer program, so most cross-cutting API standards are simply not in play;
+  the entries below record that honestly rather than leaving the slot ambiguous. Nothing here is a
+  certification and nothing was claimed by the company.
+conformance:
+- id: rfc5988-web-linking
+  name: RFC 5988 / RFC 8288 Web Linking
+  conforms: true
+  evidence: >-
+    An anonymous GET of https://32biosciences.com/wp-json/wp/v2/posts?per_page=1 returns
+    `link: <https://32biosciences.com/wp-json/wp/v2/posts?per_page=1&page=2>; rel="next"`.
+- id: pagination
+  name: Page-number pagination with total counts
+  conforms: true
+  evidence: >-
+    `page` and `per_page` query parameters (max 100) declared in the route index, with `X-WP-Total`
+    and `X-WP-TotalPages` returned on collection responses and exposed via
+    Access-Control-Expose-Headers.
+- id: oembed
+  name: oEmbed 1.0
+  conforms: true
+  evidence: >-
+    https://32biosciences.com/wp-json/oembed/1.0/embed?url=https://32biosciences.com/ returns
+    HTTP 200 with {"version":"1.0","provider_name":"32 Bio Sciences","type":"rich",...}.
+- id: rfc7617-http-basic
+  name: RFC 7617 HTTP Basic authentication
+  conforms: true
+  evidence: >-
+    The route index advertises `authentication.application-passwords` with the authorization
+    endpoint https://32biosciences.com/wp-admin/authorize-application.php; WordPress Application
+    Passwords are transported as HTTP Basic.
+- id: rfc9457-problem-details
+  name: RFC 9457 Problem Details for HTTP APIs
+  conforms: false
+  evidence: >-
+    Errors use the WordPress envelope {"code","message","data":{"status"}} served as
+    application/json, not application/problem+json. Observed on
+    https://32biosciences.com/wp-json/wp/v2/settings (401) and /wp/v2/comments (403).
+- id: oauth2
+  name: OAuth 2.0
+  conforms: false
+  evidence: >-
+    No oauth2 security scheme anywhere in the surface; /.well-known/oauth-authorization-server and
+    /.well-known/oauth-protected-resource both return HTTP 404.
+- id: oidc
+  name: OpenID Connect
+  conforms: false
+  evidence: https://32biosciences.com/.well-known/openid-configuration returns HTTP 404.
+- id: idempotency
+  name: Idempotency keys on writes
+  conforms: false
+  evidence: >-
+    No Idempotency-Key header is accepted or documented; the write surface is WordPress core with
+    no replay-protection mechanism.
+- id: rfc9116-security-txt
+  name: RFC 9116 security.txt
+  conforms: false
+  evidence: https://32biosciences.com/.well-known/security.txt returns HTTP 404.
+- id: rfc8615-well-known
+  name: RFC 8615 well-known URIs
+  conforms: false
+  evidence: >-
+    Every /.well-known/ path probed on 32biosciences.com returns HTTP 404 with the site's HTML 404
+    template. See well-known/32-biosciences-well-known.yml.
+domain_standards:
+- id: hl7-fhir
+  name: HL7 FHIR
+  conforms: false
+  evidence: >-
+    Reward-only check, recorded for the healthcare/life-sciences regime. 32 Biosciences publishes no
+    clinical or patient-data API of any kind - the only surface is a CMS content API - so there is
+    no contract that could carry a FHIR resource shape. Not a deduction.
+- id: hl7v2
+  name: HL7 v2 messaging
+  conforms: false
+  evidence: No messaging or integration surface is published.
+- id: cdisc
+  name: CDISC (SDTM/ODM) clinical-trial data standards
+  conforms: false
+  evidence: >-
+    No clinical-trial data is exposed programmatically. Pipeline and proof-of-concept information is
+    published as marketing pages only.
+compliance_programs: []
+certifications: []
+notes:
+- >-
+  No Compliance pointer is wired into apis.yml. The company publishes no certification, audit
+  report, trust center or compliance program page, and a Compliance pointer over an empty
+  certifications list would credit them with a posture they have not published.

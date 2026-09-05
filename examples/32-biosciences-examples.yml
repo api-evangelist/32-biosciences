@@ -1,0 +1,99 @@
+generated: '2026-09-05'
+method: probed
+source: Live anonymous requests against https://32biosciences.com/wp-json/ on 2026-09-05
+name: 32 Biosciences API examples
+description: >-
+  Real request/response pairs captured from the WordPress REST API on 32biosciences.com. Every
+  response below was returned by an unauthenticated GET; responses are truncated to their first
+  item and to representative fields, and nothing has been synthesised.
+examples:
+- name: List news releases and feature posts
+  operationId: getPosts
+  request:
+    method: GET
+    url: https://32biosciences.com/wp-json/wp/v2/posts?per_page=1&_fields=id,date,slug,link,title,author,featured_media,categories
+  response:
+    status: 200
+    headers:
+      x-wp-total: '12'
+      x-wp-totalpages: '12'
+      link: <https://32biosciences.com/wp-json/wp/v2/posts?per_page=1&page=2>; rel="next"
+      allow: GET
+    body: |-
+      [{"id":4612,
+        "date":"2026-01-08T13:30:11",
+        "slug":"32-biosciences-to-launch-40-million-series-a-at-j-p-morgan-to-advance-first-in-class-gi-mucosal-immune-therapeutics",
+        "link":"https://www.businesswire.com/news/home/20260108625100/en/32-Biosciences-to-Launch-%2440-Million-Series-A-at-J.P.-Morgan-to-Advance-First-in-Class-GI-Mucosal-Immune-Therapeutics",
+        "title":{"rendered":"32 Biosciences to Launch $40 Million Series A at J.P. Morgan to Advance First-in-Class GI Mucosal-Immune Therapeutics"},
+        "author":4,
+        "featured_media":4641,
+        "categories":[7,11]}]
+- name: List newsroom categories
+  operationId: getCategories
+  request:
+    method: GET
+    url: https://32biosciences.com/wp-json/wp/v2/categories?per_page=100&_fields=id,name,slug,count,description,link
+  response:
+    status: 200
+    headers:
+      x-wp-total: '3'
+    body: |-
+      [{"id":7,"count":7,"description":"selected external articles and internally driven updates, links to video, etc.",
+        "link":"https://32biosciences.com/category/features/","name":"Features","slug":"features"},
+       {"id":11,"count":12,"description":"32 Bio press releases",
+        "link":"https://32biosciences.com/category/news-releases/","name":"News Releases","slug":"news-releases"},
+       {"id":1,"count":0,"description":"","link":"https://32biosciences.com/category/uncategorized/",
+        "name":"Uncategorized","slug":"uncategorized"}]
+- name: Search the site
+  operationId: getSearch
+  request:
+    method: GET
+    url: https://32biosciences.com/wp-json/wp/v2/search?search=mucosal&per_page=2
+  response:
+    status: 200
+    body: |-
+      [{"id":4612,"title":"32 Biosciences to Launch $40 Million Series A at J.P. Morgan to Advance First-in-Class GI Mucosal-Immune Therapeutics",
+        "url":"https://www.businesswire.com/news/home/20260108625100/en/...","type":"post","subtype":"post"},
+       {"id":4642,"title":"Pipeline &amp; Proof of Concept &#8211; Demo",
+        "url":"https://32biosciences.com/pipeline-proof-of-concept/","type":"post","subtype":"page"}]
+- name: List marketing and profile pages
+  operationId: getPages
+  request:
+    method: GET
+    url: https://32biosciences.com/wp-json/wp/v2/pages?per_page=100&_fields=slug,title,link
+  response:
+    status: 200
+    headers:
+      x-wp-total: '37'
+    body: |-
+      [{"slug":"james-gruber","link":"https://32biosciences.com/james-gruber/"},
+       {"slug":"pipeline-proof-of-concept","link":"https://32biosciences.com/pipeline-proof-of-concept/"},
+       {"slug":"therapeutic-platform","link":"https://32biosciences.com/therapeutic-platform/"},
+       {"slug":"diagnostic-platform","link":"https://32biosciences.com/diagnostic-platform/"}]
+- name: oEmbed a page on the site
+  operationId: getOembedEmbed
+  request:
+    method: GET
+    url: https://32biosciences.com/wp-json/oembed/1.0/embed?url=https://32biosciences.com/
+  response:
+    status: 200
+    body: |-
+      {"version":"1.0","provider_name":"32 Bio Sciences","provider_url":"https://32biosciences.com",
+       "author_name":"Erika","author_url":"https://32biosciences.com/author/erika/",
+       "title":"Homepage - 32 Bio Sciences","type":"rich","width":600,"height":338}
+- name: Comments route is registered but disabled
+  operationId: getComments
+  request:
+    method: GET
+    url: https://32biosciences.com/wp-json/wp/v2/comments?per_page=1
+  response:
+    status: 403
+    body: '{"code":"rest_comment_disabled","message":"Comments are disabled.","data":{"status":403}}'
+- name: Settings route rejects anonymous callers
+  operationId: getSettings
+  request:
+    method: GET
+    url: https://32biosciences.com/wp-json/wp/v2/settings
+  response:
+    status: 401
+    body: '{"code":"rest_forbidden","message":"Sorry, you are not allowed to do that.","data":{"status":401}}'

@@ -1,0 +1,43 @@
+generated: '2026-09-05'
+method: searched
+source: >-
+  registry.npmjs.org search, pypi.org, api.github.com user + repository search, and the
+  32biosciences.com website navigation
+name: 32 Biosciences packages and SDKs
+description: >-
+  32 Biosciences publishes no client libraries. The company has no developer program, no
+  documented API and no public source-code organization, so there is nothing to wrap. Registry
+  searches were run rather than assumed; each is recorded below with what it returned.
+package_count: 0
+official_sdk_count: 0
+packages: []
+registries_searched:
+- registry: npm
+  query: https://registry.npmjs.org/-/v1/search?text=32biosciences
+  results: 0
+  note: No package published under a 32 Biosciences name or scope.
+- registry: npm
+  query: https://registry.npmjs.org/-/v1/search?text=32-biosciences
+  results: 0
+  note: Matches returned were unrelated packages (crc-32, adler-32, an unrelated vendor scope).
+- registry: pypi
+  query: https://pypi.org/pypi/32biosciences/json
+  status: 404
+- registry: pypi
+  query: https://pypi.org/pypi/biosciences32/json
+  status: 404
+- registry: github
+  query: https://api.github.com/search/users?q=32biosciences
+  results: 0
+  note: No GitHub organization or user. https://github.com/32biosciences returns HTTP 404.
+- registry: github
+  query: https://api.github.com/search/repositories?q=32biosciences
+  results: 0
+notes:
+- >-
+  The only consumable surface is the WordPress REST API at https://32biosciences.com/wp-json/. Any
+  generic WordPress REST client works against it; none of them are first-party to this company and
+  none are recorded here as such.
+- >-
+  No SDKs pointer is wired into apis.yml. There is no first-party SDK, and asserting one on a
+  Packages artifact holding zero entries would be a false claim.

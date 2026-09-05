@@ -1,0 +1,32 @@
+generated: '2026-09-05'
+method: searched
+source: >-
+  https://32biosciences.com/ full page inventory via
+  https://32biosciences.com/wp-json/wp/v2/pages?per_page=100 and
+  https://32biosciences.com/sitemap_index.xml
+name: 32 Biosciences plans and pricing
+plan_count: 0
+plans: []
+description: >-
+  32 Biosciences publishes no pricing of any kind - not for an API, not for a product. It is a
+  pre-commercial biotechnology company whose lead therapeutic asset (CS-0003) is pre-approval and
+  whose diagnostic platform is not offered for sale online. The full 37-page site inventory was read
+  from the WordPress pages collection and the Yoast sitemap index; there is no /pricing, /plans or
+  /buy page, no e-commerce plugin in the route index, and no "contact sales" pricing gate either.
+  The WordPress REST API that serves the site content is free and anonymous to read.
+evidence:
+- url: https://32biosciences.com/wp-json/wp/v2/pages?per_page=100
+  status: 200
+  note: 37 pages, none of them a pricing, plans or purchase page.
+- url: https://32biosciences.com/sitemap_index.xml
+  status: 200
+  note: Post, page, category, tag and author sitemaps only.
+- url: https://32biosciences.com/investor-relations/
+  status: 200
+  note: >-
+    Investor relations page - equity fundraising ($6M raised, $40M Series A announced at JPM 2026),
+    not product pricing.
+notes:
+- >-
+  Recorded as an explicit zero rather than omitted, so the absence is legible as a measured fact
+  rather than as a step this pipeline skipped.

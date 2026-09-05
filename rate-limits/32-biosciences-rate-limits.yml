@@ -1,0 +1,41 @@
+generated: '2026-09-05'
+method: probed
+source: >-
+  Response headers observed on anonymous GETs against https://32biosciences.com/wp-json/ on
+  2026-09-05, plus the 37-page site inventory searched for a limits or fair-use page
+name: 32 Biosciences rate limits
+limit_count: 0
+limits: []
+description: >-
+  32 Biosciences documents no rate limits and returns no rate-limit headers. There is no developer
+  portal, no terms of use for an API and no fair-use page anywhere on the site. Whatever throttling
+  exists is imposed by the hosting layer and is invisible to a caller, which means an agent calling
+  this host has no runtime signal to back off on and must self-pace.
+response_headers:
+  rate_limit_headers_returned: []
+  standard_headers_checked: [X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, RateLimit-Limit,
+    RateLimit-Remaining, RateLimit-Reset, RateLimit-Policy, Retry-After]
+  observed_headers: [server, date, content-type, vary, x-robots-tag, x-content-type-options, access-control-expose-headers,
+    access-control-allow-headers, x-wp-total, x-wp-totalpages, link, allow, cache-control, expires]
+  exhaustion_status: null
+  note: None of the standard limit headers was present on any observed response.
+evidence:
+- url: https://32biosciences.com/wp-json/wp/v2/posts?per_page=1
+  status: 200
+  note: HEAD/GET response carried no rate-limit header of any form.
+- url: https://32biosciences.com/wp-json/
+  status: 200
+  note: Route index declares no throttling policy and no rate-limit extension.
+- url: https://32biosciences.com/robots.txt
+  status: 200
+  note: 'Yoast-generated; `User-agent: * / Disallow:` with a sitemap line. No Crawl-delay directive.'
+paging_limits:
+  per_page_max: 100
+  note: >-
+    The only enforced numeric ceiling found anywhere on the surface is the WordPress `per_page`
+    maximum of 100, declared in the route index. It bounds a single response, not a request rate,
+    and is recorded here so it is not mistaken for one.
+notes:
+- >-
+  Recorded as an explicit zero rather than omitted. An honest zero is data; a missing file would
+  read as a step this pipeline did not run.

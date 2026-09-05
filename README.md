@@ -64,5 +64,33 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-32 Biosciences is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://www.nasdaqprivatemarket.com/
+32 Biosciences ("Three Squared") is a North Chicago, Illinois gastrointestinal biotechnology company
+founded in 2023, pioneering gut mucosal-immune science to prevent and treat GI disease. It runs a GI
+Discovery Platform measuring metabolomic signatures of gut mucosal-immune function, and a CS
+Therapeutic Platform whose lead asset CS-0003 is a Mucosal Immune Modulator.
+
+- Website: https://32biosciences.com/
+- News: https://32biosciences.com/news-updates/
+- LinkedIn: https://www.linkedin.com/company/32biosciences
+
+## What this profile found
+
+**32 Biosciences publishes no product or developer API.** There is no developer portal, no
+documentation, no reference, no SDK, no CLI, no sandbox, no status page, no changelog, no pricing and
+no published rate limits. Every `/.well-known/` path returns HTTP 404, there is no MCP server and no
+A2A agent card, and GitHub, npm and PyPI hold nothing under the company's name.
+
+The one machine-readable surface on `32biosciences.com` is the **WordPress REST API** the site's CMS
+exposes at `https://32biosciences.com/wp-json/`. It is anonymously readable and serves the company
+newsroom (12 posts), marketing, platform and leadership-profile pages (37), the media library (230
+attachments), taxonomies, authors and a site-wide search endpoint as JSON. Writes exist on the same
+routes but require WordPress Application Passwords held by an administrator.
+
+The OpenAPI documents in this repository were **derived by API Evangelist** from the route-discovery
+document that site serves — saved verbatim at `openapi/_source/` — and are marked as such
+(`x-provider-published: false`). See `openapi/_ae-authored/README.md`. Nothing here was authored on
+32 Biosciences' behalf as if the company had published it.
+
+A `wp-abilities/v1` registry — the substrate the WordPress MCP Adapter builds tools from — is present
+in the route index but returns HTTP 401 anonymously, so no ability could be enumerated and no MCP
+adapter is installed on top of it. That is a lead for a future pass, not an agent surface today.

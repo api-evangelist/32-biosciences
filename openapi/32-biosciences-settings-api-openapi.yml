@@ -1,0 +1,446 @@
+openapi: 3.1.0
+info:
+  title: 32 Biosciences Settings API (WordPress REST wp/v2)
+  version: wp/v2
+  summary: 'Public read surface of 32biosciences.com content: news releases and features, marketing and platform
+    pages, leadership and scientific-advisor profiles, the media library, taxonomies and site search.'
+  description: '32 Biosciences publishes 32biosciences.com on WordPress, which exposes the WordPress REST API at
+    https://32biosciences.com/wp-json/. The `wp/v2` namespace is anonymously readable and returns the company''s
+    news releases and feature posts, marketing and platform pages (Technology, Therapeutic Platform, Discovery Platform,
+    Pipeline & Proof of Concept, Our Story, Team, Investor Relations), individual leadership and scientific advisory
+    profiles, the media library, taxonomies and a site-wide search endpoint as JSON.
+
+
+    This document was DERIVED mechanically by API Evangelist from the route-discovery document served at https://32biosciences.com/wp-json/
+    on 2026-09-05 — every path, method and parameter below is taken verbatim from that descriptor. 32 Biosciences
+    does not publish an OpenAPI definition of its own, and this is not a product API: it is the content API the
+    CMS exposes. Write operations exist on these routes but require authentication (WordPress Application Passwords
+    over HTTP Basic). `/wp/v2/comments` is served but returns HTTP 403 `rest_comment_disabled` because commenting
+    is switched off site-wide, and `/wp/v2/settings` returns HTTP 401 `rest_forbidden` anonymously.'
+  contact:
+    name: 32 Biosciences
+    url: https://32biosciences.com/contact/
+    email: info@32biosciences.com
+  x-derived-by: API Evangelist enrichment pipeline
+  x-derived-from: https://32biosciences.com/wp-json/
+  x-derived-on: '2026-09-05'
+  x-provider-published: false
+servers:
+- url: https://32biosciences.com/wp-json
+  description: Production
+tags:
+- name: Settings
+paths:
+  /wp/v2/settings:
+    get:
+      operationId: getSettings
+      summary: GET /wp/v2/settings
+      tags:
+      - Settings
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type:
+                - object
+                - array
+        '400':
+          $ref: '#/components/responses/Error'
+        '401':
+          $ref: '#/components/responses/Error'
+        '403':
+          $ref: '#/components/responses/Error'
+        '404':
+          $ref: '#/components/responses/Error'
+    post:
+      operationId: createSettings
+      summary: POST /wp/v2/settings
+      tags:
+      - Settings
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date_format:
+                  type: string
+                  description: A date format for all date strings.
+                default_category:
+                  type: integer
+                  description: Default post category.
+                default_comment_status:
+                  type: string
+                  enum: &id001
+                  - open
+                  - closed
+                  description: Allow people to submit comments on new posts.
+                default_ping_status:
+                  type: string
+                  enum: &id002
+                  - open
+                  - closed
+                  description: Allow link notifications from other blogs (pingbacks and trackbacks) on new articles.
+                default_post_format:
+                  type: string
+                  description: Default post format.
+                description:
+                  type: string
+                  description: Site tagline.
+                elementor_one_dismiss_connect_alert:
+                  type: boolean
+                  description: Elementor One Dismiss Connect Alert
+                elementor_one_dismiss_elementor_one_subscription_alert:
+                  type: boolean
+                  description: Elementor One Dismiss Elementor One Subscription Alert
+                elementor_one_welcome_screen_completed:
+                  type: boolean
+                  description: Elementor One Welcome Screen Completed
+                email:
+                  type: string
+                  format: email
+                  description: This address is used for admin purposes, like new user notification.
+                hello_elementor_settings_description_meta_tag:
+                  type: string
+                hello_elementor_settings_header_footer:
+                  type: string
+                hello_elementor_settings_hello_style:
+                  type: string
+                hello_elementor_settings_hello_theme:
+                  type: string
+                hello_elementor_settings_page_title:
+                  type: string
+                hello_elementor_settings_skip_link:
+                  type: string
+                language:
+                  type: string
+                  description: WordPress locale code.
+                page_for_posts:
+                  type: integer
+                  description: The ID of the page that should display the latest posts
+                page_on_front:
+                  type: integer
+                  description: The ID of the page that should be displayed on the front page
+                posts_per_page:
+                  type: integer
+                  description: Blog pages show at most.
+                show_on_front:
+                  type: string
+                  description: What to show on the front page
+                site_icon:
+                  type: integer
+                  description: Site icon.
+                site_logo:
+                  type: integer
+                  description: Site logo.
+                start_of_week:
+                  type: integer
+                  description: A day number of the week that the week should start on.
+                time_format:
+                  type: string
+                  description: A time format for all time strings.
+                timezone:
+                  type: string
+                  description: A city in the same timezone as you.
+                title:
+                  type: string
+                  description: Site title.
+                url:
+                  type: string
+                  format: uri
+                  description: Site URL.
+                use_smilies:
+                  type: boolean
+                  description: Convert emoticons like :-) and :-P to graphics on display.
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type:
+                - object
+                - array
+        '400':
+          $ref: '#/components/responses/Error'
+        '401':
+          $ref: '#/components/responses/Error'
+        '403':
+          $ref: '#/components/responses/Error'
+        '404':
+          $ref: '#/components/responses/Error'
+      security:
+      - applicationPassword: []
+      description: Write operation. WordPress requires an authenticated user with the relevant capability; anonymous
+        calls return 401 `rest_forbidden`.
+    put:
+      operationId: replaceSettings
+      summary: PUT /wp/v2/settings
+      tags:
+      - Settings
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date_format:
+                  type: string
+                  description: A date format for all date strings.
+                default_category:
+                  type: integer
+                  description: Default post category.
+                default_comment_status:
+                  type: string
+                  enum: *id001
+                  description: Allow people to submit comments on new posts.
+                default_ping_status:
+                  type: string
+                  enum: *id002
+                  description: Allow link notifications from other blogs (pingbacks and trackbacks) on new articles.
+                default_post_format:
+                  type: string
+                  description: Default post format.
+                description:
+                  type: string
+                  description: Site tagline.
+                elementor_one_dismiss_connect_alert:
+                  type: boolean
+                  description: Elementor One Dismiss Connect Alert
+                elementor_one_dismiss_elementor_one_subscription_alert:
+                  type: boolean
+                  description: Elementor One Dismiss Elementor One Subscription Alert
+                elementor_one_welcome_screen_completed:
+                  type: boolean
+                  description: Elementor One Welcome Screen Completed
+                email:
+                  type: string
+                  format: email
+                  description: This address is used for admin purposes, like new user notification.
+                hello_elementor_settings_description_meta_tag:
+                  type: string
+                hello_elementor_settings_header_footer:
+                  type: string
+                hello_elementor_settings_hello_style:
+                  type: string
+                hello_elementor_settings_hello_theme:
+                  type: string
+                hello_elementor_settings_page_title:
+                  type: string
+                hello_elementor_settings_skip_link:
+                  type: string
+                language:
+                  type: string
+                  description: WordPress locale code.
+                page_for_posts:
+                  type: integer
+                  description: The ID of the page that should display the latest posts
+                page_on_front:
+                  type: integer
+                  description: The ID of the page that should be displayed on the front page
+                posts_per_page:
+                  type: integer
+                  description: Blog pages show at most.
+                show_on_front:
+                  type: string
+                  description: What to show on the front page
+                site_icon:
+                  type: integer
+                  description: Site icon.
+                site_logo:
+                  type: integer
+                  description: Site logo.
+                start_of_week:
+                  type: integer
+                  description: A day number of the week that the week should start on.
+                time_format:
+                  type: string
+                  description: A time format for all time strings.
+                timezone:
+                  type: string
+                  description: A city in the same timezone as you.
+                title:
+                  type: string
+                  description: Site title.
+                url:
+                  type: string
+                  format: uri
+                  description: Site URL.
+                use_smilies:
+                  type: boolean
+                  description: Convert emoticons like :-) and :-P to graphics on display.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type:
+                - object
+                - array
+        '400':
+          $ref: '#/components/responses/Error'
+        '401':
+          $ref: '#/components/responses/Error'
+        '403':
+          $ref: '#/components/responses/Error'
+        '404':
+          $ref: '#/components/responses/Error'
+      security:
+      - applicationPassword: []
+      description: Write operation. WordPress requires an authenticated user with the relevant capability; anonymous
+        calls return 401 `rest_forbidden`.
+    patch:
+      operationId: patchSettings
+      summary: PATCH /wp/v2/settings
+      tags:
+      - Settings
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date_format:
+                  type: string
+                  description: A date format for all date strings.
+                default_category:
+                  type: integer
+                  description: Default post category.
+                default_comment_status:
+                  type: string
+                  enum: *id001
+                  description: Allow people to submit comments on new posts.
+                default_ping_status:
+                  type: string
+                  enum: *id002
+                  description: Allow link notifications from other blogs (pingbacks and trackbacks) on new articles.
+                default_post_format:
+                  type: string
+                  description: Default post format.
+                description:
+                  type: string
+                  description: Site tagline.
+                elementor_one_dismiss_connect_alert:
+                  type: boolean
+                  description: Elementor One Dismiss Connect Alert
+                elementor_one_dismiss_elementor_one_subscription_alert:
+                  type: boolean
+                  description: Elementor One Dismiss Elementor One Subscription Alert
+                elementor_one_welcome_screen_completed:
+                  type: boolean
+                  description: Elementor One Welcome Screen Completed
+                email:
+                  type: string
+                  format: email
+                  description: This address is used for admin purposes, like new user notification.
+                hello_elementor_settings_description_meta_tag:
+                  type: string
+                hello_elementor_settings_header_footer:
+                  type: string
+                hello_elementor_settings_hello_style:
+                  type: string
+                hello_elementor_settings_hello_theme:
+                  type: string
+                hello_elementor_settings_page_title:
+                  type: string
+                hello_elementor_settings_skip_link:
+                  type: string
+                language:
+                  type: string
+                  description: WordPress locale code.
+                page_for_posts:
+                  type: integer
+                  description: The ID of the page that should display the latest posts
+                page_on_front:
+                  type: integer
+                  description: The ID of the page that should be displayed on the front page
+                posts_per_page:
+                  type: integer
+                  description: Blog pages show at most.
+                show_on_front:
+                  type: string
+                  description: What to show on the front page
+                site_icon:
+                  type: integer
+                  description: Site icon.
+                site_logo:
+                  type: integer
+                  description: Site logo.
+                start_of_week:
+                  type: integer
+                  description: A day number of the week that the week should start on.
+                time_format:
+                  type: string
+                  description: A time format for all time strings.
+                timezone:
+                  type: string
+                  description: A city in the same timezone as you.
+                title:
+                  type: string
+                  description: Site title.
+                url:
+                  type: string
+                  format: uri
+                  description: Site URL.
+                use_smilies:
+                  type: boolean
+                  description: Convert emoticons like :-) and :-P to graphics on display.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type:
+                - object
+                - array
+        '400':
+          $ref: '#/components/responses/Error'
+        '401':
+          $ref: '#/components/responses/Error'
+        '403':
+          $ref: '#/components/responses/Error'
+        '404':
+          $ref: '#/components/responses/Error'
+      security:
+      - applicationPassword: []
+      description: Write operation. WordPress requires an authenticated user with the relevant capability; anonymous
+        calls return 401 `rest_forbidden`.
+components:
+  securitySchemes:
+    applicationPassword:
+      type: http
+      scheme: basic
+      description: WordPress Application Passwords over HTTP Basic. The route-discovery document advertises the
+        authorization endpoint at https://32biosciences.com/wp-admin/authorize-application.php. Anonymous read access
+        needs no credential; every write, and the settings and abilities routes, require one.
+  schemas:
+    Error:
+      type: object
+      description: WordPress REST API error envelope.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code, e.g. `rest_post_invalid_id`.
+        message:
+          type: string
+          description: Human-readable message.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              description: HTTP status code.
+  responses:
+    Error:
+      description: WordPress REST error envelope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
