@@ -3,10 +3,10 @@
   "feeds": [
     {
       "source": "https://32biosciences.com/news-updates/",
-      "feed_url": "https://32biosciences.com/feed/",
+      "feed_url": "https://32biosciences.com/news-updates/",
       "title": "",
       "saved": 0,
-      "method": "discovered"
+      "method": "none"
     },
     {
       "source": "https://32biosciences.com/category/news-releases/",
@@ -14,8 +14,15 @@
       "title": "",
       "saved": 0,
       "method": "discovered"
+    },
+    {
+      "source": "https://32biosciences.com/feed/",
+      "feed_url": "https://32biosciences.com/feed/",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
     }
   ],
-  "post_count": 0,
-  "fetched": "2026-09-06T19:17:18Z"
+  "post_count": 10,
+  "fetched": "2026-09-13T13:00:00Z"
 }
