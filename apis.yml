@@ -142,6 +142,9 @@ apis:
   baseURL: https://32biosciences.com/wp-json/wp/v2
   tags:
   - Content
+  - User
+  tags_raw:
+  - Content
   - Users
   properties:
   - type: OpenAPI
