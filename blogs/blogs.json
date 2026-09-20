@@ -3,10 +3,10 @@
   "feeds": [
     {
       "source": "https://32biosciences.com/news-updates/",
-      "feed_url": "https://32biosciences.com/news-updates/",
+      "feed_url": "https://32biosciences.com/feed/",
       "title": "",
       "saved": 0,
-      "method": "none"
+      "method": "discovered"
     },
     {
       "source": "https://32biosciences.com/category/news-releases/",
@@ -24,5 +24,5 @@
     }
   ],
   "post_count": 10,
-  "fetched": "2026-09-13T13:00:00Z"
+  "fetched": "2026-09-19T20:17:39Z"
 }
