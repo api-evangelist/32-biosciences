@@ -1,0 +1,34 @@
+{
+  "provider": "32-biosciences",
+  "sources": [
+    "_ae-authored/32-biosciences-content-openapi.yml"
+  ],
+  "outputs": [
+    "32-biosciences-comments-api-openapi.yml",
+    "32-biosciences-discovery-api-openapi.yml",
+    "32-biosciences-media-api-openapi.yml",
+    "32-biosciences-pages-api-openapi.yml",
+    "32-biosciences-posts-api-openapi.yml",
+    "32-biosciences-settings-api-openapi.yml",
+    "32-biosciences-taxonomy-api-openapi.yml",
+    "32-biosciences-users-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "sourced from openapi/_original/ (0 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "32-biosciences-content-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "32-biosciences-comments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "32-biosciences-discovery-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "32-biosciences-media-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "32-biosciences-pages-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "32-biosciences-posts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "32-biosciences-settings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "32-biosciences-taxonomy-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "32-biosciences-users-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}

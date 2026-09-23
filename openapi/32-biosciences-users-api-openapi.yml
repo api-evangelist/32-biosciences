@@ -1,22 +1,9 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: 32 Biosciences Users API (WordPress REST wp/v2)
+  title: 32 Biosciences Content API (WordPress REST wp/v2) Users API
   version: wp/v2
-  summary: 'Public read surface of 32biosciences.com content: news releases and features, marketing and platform
-    pages, leadership and scientific-advisor profiles, the media library, taxonomies and site search.'
-  description: '32 Biosciences publishes 32biosciences.com on WordPress, which exposes the WordPress REST API at
-    https://32biosciences.com/wp-json/. The `wp/v2` namespace is anonymously readable and returns the company''s
-    news releases and feature posts, marketing and platform pages (Technology, Therapeutic Platform, Discovery Platform,
-    Pipeline & Proof of Concept, Our Story, Team, Investor Relations), individual leadership and scientific advisory
-    profiles, the media library, taxonomies and a site-wide search endpoint as JSON.
-
-
-    This document was DERIVED mechanically by API Evangelist from the route-discovery document served at https://32biosciences.com/wp-json/
-    on 2026-09-05 — every path, method and parameter below is taken verbatim from that descriptor. 32 Biosciences
-    does not publish an OpenAPI definition of its own, and this is not a product API: it is the content API the
-    CMS exposes. Write operations exist on these routes but require authentication (WordPress Application Passwords
-    over HTTP Basic). `/wp/v2/comments` is served but returns HTTP 403 `rest_comment_disabled` because commenting
-    is switched off site-wide, and `/wp/v2/settings` returns HTTP 401 `rest_forbidden` anonymously.'
+  summary: 'Public read surface of 32biosciences.com content: news releases and features, marketing and platform pages, leadership and scientific-advisor profiles, the media library, taxonomies and site search.'
+  description: 32 Biosciences publishes 32biosciences.com on WordPress, which exposes the WordPress REST API at https://32biosciences.com/wp-json/.
   contact:
     name: 32 Biosciences
     url: https://32biosciences.com/contact/
@@ -45,8 +32,7 @@ paths:
           type: array
           items:
             type: string
-        description: Limit result set to users matching at least one specific capability provided. Accepts csv list
-          or single capability.
+        description: Limit result set to users matching at least one specific capability provided. Accepts csv list or single capability.
       - name: context
         in: query
         required: false
@@ -138,8 +124,7 @@ paths:
           type: array
           items:
             type: string
-        description: Limit result set to users matching at least one specific role provided. Accepts csv list or
-          single role.
+        description: Limit result set to users matching at least one specific role provided. Accepts csv list or single role.
       - name: search
         in: query
         required: false
@@ -278,8 +263,7 @@ paths:
           $ref: '#/components/responses/Error'
       security:
       - applicationPassword: []
-      description: Write operation. WordPress requires an authenticated user with the relevant capability; anonymous
-        calls return 401 `rest_forbidden`.
+      description: Write operation. WordPress requires an authenticated user with the relevant capability; anonymous calls return 401 `rest_forbidden`.
   /wp/v2/users/{id}:
     parameters:
     - name: id
@@ -361,7 +345,7 @@ paths:
                   description: Last name for the user.
                 locale:
                   type: string
-                  enum: &id001
+                  enum:
                   - ''
                   - en_US
                   description: Locale for the user.
@@ -411,8 +395,7 @@ paths:
           $ref: '#/components/responses/Error'
       security:
       - applicationPassword: []
-      description: Write operation. WordPress requires an authenticated user with the relevant capability; anonymous
-        calls return 401 `rest_forbidden`.
+      description: Write operation. WordPress requires an authenticated user with the relevant capability; anonymous calls return 401 `rest_forbidden`.
     put:
       operationId: replaceUsersById
       summary: PUT /wp/v2/users/{id}
@@ -446,7 +429,9 @@ paths:
                   description: Last name for the user.
                 locale:
                   type: string
-                  enum: *id001
+                  enum:
+                  - ''
+                  - en_US
                   description: Locale for the user.
                 meta:
                   type: object
@@ -494,8 +479,7 @@ paths:
           $ref: '#/components/responses/Error'
       security:
       - applicationPassword: []
-      description: Write operation. WordPress requires an authenticated user with the relevant capability; anonymous
-        calls return 401 `rest_forbidden`.
+      description: Write operation. WordPress requires an authenticated user with the relevant capability; anonymous calls return 401 `rest_forbidden`.
     patch:
       operationId: patchUsersById
       summary: PATCH /wp/v2/users/{id}
@@ -529,7 +513,9 @@ paths:
                   description: Last name for the user.
                 locale:
                   type: string
-                  enum: *id001
+                  enum:
+                  - ''
+                  - en_US
                   description: Locale for the user.
                 meta:
                   type: object
@@ -577,8 +563,7 @@ paths:
           $ref: '#/components/responses/Error'
       security:
       - applicationPassword: []
-      description: Write operation. WordPress requires an authenticated user with the relevant capability; anonymous
-        calls return 401 `rest_forbidden`.
+      description: Write operation. WordPress requires an authenticated user with the relevant capability; anonymous calls return 401 `rest_forbidden`.
     delete:
       operationId: deleteUsersById
       summary: DELETE /wp/v2/users/{id}
@@ -623,8 +608,7 @@ paths:
           $ref: '#/components/responses/Error'
       security:
       - applicationPassword: []
-      description: Write operation. WordPress requires an authenticated user with the relevant capability; anonymous
-        calls return 401 `rest_forbidden`.
+      description: Write operation. WordPress requires an authenticated user with the relevant capability; anonymous calls return 401 `rest_forbidden`.
   /wp/v2/users/me:
     get:
       operationId: getUsersMe
@@ -690,7 +674,7 @@ paths:
                   description: Last name for the user.
                 locale:
                   type: string
-                  enum: &id002
+                  enum:
                   - ''
                   - en_US
                   description: Locale for the user.
@@ -740,8 +724,7 @@ paths:
           $ref: '#/components/responses/Error'
       security:
       - applicationPassword: []
-      description: Write operation. WordPress requires an authenticated user with the relevant capability; anonymous
-        calls return 401 `rest_forbidden`.
+      description: Write operation. WordPress requires an authenticated user with the relevant capability; anonymous calls return 401 `rest_forbidden`.
     put:
       operationId: replaceUsersMe
       summary: PUT /wp/v2/users/me
@@ -772,7 +755,9 @@ paths:
                   description: Last name for the user.
                 locale:
                   type: string
-                  enum: *id002
+                  enum:
+                  - ''
+                  - en_US
                   description: Locale for the user.
                 meta:
                   type: object
@@ -820,8 +805,7 @@ paths:
           $ref: '#/components/responses/Error'
       security:
       - applicationPassword: []
-      description: Write operation. WordPress requires an authenticated user with the relevant capability; anonymous
-        calls return 401 `rest_forbidden`.
+      description: Write operation. WordPress requires an authenticated user with the relevant capability; anonymous calls return 401 `rest_forbidden`.
     patch:
       operationId: patchUsersMe
       summary: PATCH /wp/v2/users/me
@@ -852,7 +836,9 @@ paths:
                   description: Last name for the user.
                 locale:
                   type: string
-                  enum: *id002
+                  enum:
+                  - ''
+                  - en_US
                   description: Locale for the user.
                 meta:
                   type: object
@@ -900,8 +886,7 @@ paths:
           $ref: '#/components/responses/Error'
       security:
       - applicationPassword: []
-      description: Write operation. WordPress requires an authenticated user with the relevant capability; anonymous
-        calls return 401 `rest_forbidden`.
+      description: Write operation. WordPress requires an authenticated user with the relevant capability; anonymous calls return 401 `rest_forbidden`.
     delete:
       operationId: deleteUsersMe
       summary: DELETE /wp/v2/users/me
@@ -940,16 +925,8 @@ paths:
           $ref: '#/components/responses/Error'
       security:
       - applicationPassword: []
-      description: Write operation. WordPress requires an authenticated user with the relevant capability; anonymous
-        calls return 401 `rest_forbidden`.
+      description: Write operation. WordPress requires an authenticated user with the relevant capability; anonymous calls return 401 `rest_forbidden`.
 components:
-  securitySchemes:
-    applicationPassword:
-      type: http
-      scheme: basic
-      description: WordPress Application Passwords over HTTP Basic. The route-discovery document advertises the
-        authorization endpoint at https://32biosciences.com/wp-admin/authorize-application.php. Anonymous read access
-        needs no credential; every write, and the settings and abilities routes, require one.
   schemas:
     Error:
       type: object
@@ -974,3 +951,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  securitySchemes:
+    applicationPassword:
+      type: http
+      scheme: basic
+      description: WordPress Application Passwords over HTTP Basic. The route-discovery document advertises the authorization endpoint at https://32biosciences.com/wp-admin/authorize-application.php. Anonymous read access needs no credential; every write, and the settings and abilities routes, require one.
