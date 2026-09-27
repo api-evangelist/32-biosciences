@@ -34,157 +34,21 @@ tags:
 - Pharmaceuticals
 - Metabolomics
 - Healthcare
-- Content
 apis:
-- aid: 32-biosciences:32-biosciences-posts-api
-  name: 32 Biosciences Posts API
-  description: The WordPress wp/v2 posts collection on 32biosciences.com, serving the company's news releases
-    and feature posts as JSON - 12 published posts at the time of profiling, filterable by category, tag, author,
-    date and search string. Read access is anonymous; writes require WordPress Application Passwords.
-  humanURL: https://32biosciences.com/news-updates/
-  baseURL: https://32biosciences.com/wp-json/wp/v2
-  tags:
-  - Content
-  - Posts
-  - News
-  properties:
-  - type: OpenAPI
-    url: openapi/32-biosciences-posts-api-openapi.yml
-  - type: DataModel
-    url: data-model/32-biosciences-data-model.yml
-  - type: ErrorCatalog
-    url: errors/32-biosciences-problem-types.yml
-  - type: Examples
-    url: examples/32-biosciences-examples.yml
-- aid: 32-biosciences:32-biosciences-pages-api
-  name: 32 Biosciences Pages API
-  description: The WordPress wp/v2 pages collection on 32biosciences.com, serving the company's 37 marketing and
-    platform pages as JSON - Our Story, Technology, Therapeutic Platform, Discovery Platform, Pipeline & Proof
-    of Concept, Team, Investor Relations, Contact, and one page per leadership and scientific-advisory profile.
-  humanURL: https://32biosciences.com/our-story/
-  baseURL: https://32biosciences.com/wp-json/wp/v2
-  tags:
-  - Content
-  - Pages
-  properties:
-  - type: OpenAPI
-    url: openapi/32-biosciences-pages-api-openapi.yml
-  - type: DataModel
-    url: data-model/32-biosciences-data-model.yml
-  - type: ErrorCatalog
-    url: errors/32-biosciences-problem-types.yml
-  - type: Examples
-    url: examples/32-biosciences-examples.yml
-- aid: 32-biosciences:32-biosciences-media-api
-  name: 32 Biosciences Media API
-  description: The WordPress wp/v2 media collection on 32biosciences.com, serving the site's media library - 230
-    attachments including leadership headshots, platform diagrams and press assets - with rendered size variants
-    and source URLs as JSON.
-  humanURL: https://32biosciences.com/news-updates/
-  baseURL: https://32biosciences.com/wp-json/wp/v2
-  tags:
-  - Content
-  - Media
-  properties:
-  - type: OpenAPI
-    url: openapi/32-biosciences-media-api-openapi.yml
-  - type: DataModel
-    url: data-model/32-biosciences-data-model.yml
-  - type: ErrorCatalog
-    url: errors/32-biosciences-problem-types.yml
-  - type: Examples
-    url: examples/32-biosciences-examples.yml
-- aid: 32-biosciences:32-biosciences-taxonomy-api
-  name: 32 Biosciences Taxonomy API
-  description: The WordPress wp/v2 categories and tags collections on 32biosciences.com. Three categories (Features,
-    News Releases and one further term) and one tag classify the newsroom; each term carries a description, post
-    count and permalink.
-  humanURL: https://32biosciences.com/category/news-releases/
-  baseURL: https://32biosciences.com/wp-json/wp/v2
-  tags:
-  - Content
-  - Taxonomy
-  properties:
-  - type: OpenAPI
-    url: openapi/32-biosciences-taxonomy-api-openapi.yml
-  - type: DataModel
-    url: data-model/32-biosciences-data-model.yml
-  - type: ErrorCatalog
-    url: errors/32-biosciences-problem-types.yml
-  - type: Examples
-    url: examples/32-biosciences-examples.yml
-- aid: 32-biosciences:32-biosciences-discovery-api
-  name: 32 Biosciences Discovery API
-  description: The WordPress discovery routes on 32biosciences.com - site-wide search across posts and pages,
-    the registered post types, taxonomies and post statuses, and the oEmbed 1.0 endpoint that returns an embeddable
-    representation of any URL on the site.
-  humanURL: https://32biosciences.com/
+- aid: 32-biosciences:32biosciences-com-website-wordpress-rest
+  name: 32 Biosciences Website (WordPress REST)
+  description: 'The public WordPress REST API (wp-json) of the 32 Biosciences website at 32biosciences.com:
+    the route index of the site''s content management system, catalogued as one site surface rather than
+    as separate APIs.'
   baseURL: https://32biosciences.com/wp-json
   tags:
-  - Content
-  - Search
-  - Discovery
+  - WordPress
+  x-surface: platform-generated
   properties:
-  - type: OpenAPI
-    url: openapi/32-biosciences-discovery-api-openapi.yml
-  - type: DataModel
-    url: data-model/32-biosciences-data-model.yml
-  - type: ErrorCatalog
-    url: errors/32-biosciences-problem-types.yml
-  - type: Examples
-    url: examples/32-biosciences-examples.yml
-- aid: 32-biosciences:32-biosciences-users-api
-  name: 32 Biosciences Users API
-  description: The WordPress wp/v2 users collection on 32biosciences.com, serving the four content authors behind
-    the newsroom with name, slug, avatar and author-archive permalink. Read access is anonymous and limited to
-    authors with published content.
-  humanURL: https://32biosciences.com/news-updates/
-  baseURL: https://32biosciences.com/wp-json/wp/v2
-  tags:
-  - Content
-  - User
-  tags_raw:
-  - Content
-  - Users
-  properties:
-  - type: OpenAPI
-    url: openapi/32-biosciences-users-api-openapi.yml
-  - type: DataModel
-    url: data-model/32-biosciences-data-model.yml
-  - type: ErrorCatalog
-    url: errors/32-biosciences-problem-types.yml
-  - type: Examples
-    url: examples/32-biosciences-examples.yml
-- aid: 32-biosciences:32-biosciences-comments-api
-  name: 32 Biosciences Comments API
-  description: The WordPress wp/v2 comments collection on 32biosciences.com. The route is registered and advertised
-    in the route index but commenting is switched off site-wide, so an anonymous GET returns HTTP 403 rest_comment_disabled.
-    Recorded because the route is published, not because it returns data.
-  humanURL: https://32biosciences.com/news-updates/
-  baseURL: https://32biosciences.com/wp-json/wp/v2
-  tags:
-  - Content
-  - Comments
-  properties:
-  - type: OpenAPI
-    url: openapi/32-biosciences-comments-api-openapi.yml
-  - type: ErrorCatalog
-    url: errors/32-biosciences-problem-types.yml
-- aid: 32-biosciences:32-biosciences-settings-api
-  name: 32 Biosciences Settings API
-  description: The WordPress wp/v2 settings route on 32biosciences.com. Advertised in the route index and reachable,
-    but administrative - an anonymous GET returns HTTP 401 rest_forbidden. Recorded for completeness of the published
-    route surface.
-  humanURL: https://32biosciences.com/
-  baseURL: https://32biosciences.com/wp-json/wp/v2
-  tags:
-  - Content
-  - Settings
-  properties:
-  - type: OpenAPI
-    url: openapi/32-biosciences-settings-api-openapi.yml
-  - type: ErrorCatalog
-    url: errors/32-biosciences-problem-types.yml
+  - type: Documentation
+    url: https://32biosciences.com/wp-json
+  x-platform: wordpress
+  x-platform-surface: rest
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
